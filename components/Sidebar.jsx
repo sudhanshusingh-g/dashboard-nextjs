@@ -44,7 +44,7 @@ function Sidebar() {
               <span>Calendar</span>
             </div>
           </Link>
-          <Link href="/" className="w-full">
+          <Link href="/waitlist" className="w-full">
             <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
               <Timer />
               <span>Waitlist</span>

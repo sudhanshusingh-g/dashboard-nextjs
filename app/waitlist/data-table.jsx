@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { Columns2, Filter } from "lucide-react";
 
 function DataTable({ columns, data }) {
     const [sorting,setSorting]=useState([]);
@@ -62,19 +63,24 @@ function DataTable({ columns, data }) {
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <h2 className=" font-bold text-3xl">Waitlist</h2>
+      <div>
+
+      </div>
+      <div className="flex justify-between gap-8 py-4">
+        <Button variant="outline"><Filter size={16}/> Filter</Button>
         <Input
-          placeholder="Filter emails..."
+          placeholder="Search client..."
           value={table.getColumn("email")?.getFilterValue() || ""}
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="w-1/4"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns
+              <Columns2/>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
