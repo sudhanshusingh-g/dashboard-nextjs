@@ -15,7 +15,6 @@ function Sidebar() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
-  const currentTime = new Date().toLocaleTimeString();
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,13 +56,7 @@ function Sidebar() {
           />
         </div>
 
-        {isMinimized ? (
-          <></>
-        ) : (
-          <div className="flex items-center flex-col mt-4">
-            <h2 className="text-xl">{currentTime.toUpperCase()}</h2>
-          </div>
-        )}
+        
 
         <div className="flex flex-col gap-3">
           <Link href="/orders" className="w-full" title="Orders">
