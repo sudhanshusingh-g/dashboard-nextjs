@@ -9,20 +9,20 @@ import {
   Timer,
   SquareArrowOutUpRight,
 } from "lucide-react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function Sidebar() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
   const currentTime = new Date().toLocaleTimeString();
-
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 640); // Adjust the width as per your requirement for mobile view
+      setIsMobile(window.innerWidth <= 640);
     };
 
-    handleResize(); // Set initial state
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -34,6 +34,10 @@ function Sidebar() {
     setIsMinimized(!isMinimized);
   };
 
+  const handleMenuClick = (menu) => {
+    setActiveMenu(menu);
+  };
+
   return (
     <div
       className={`h-[100vh] p-2 shadow-md bg-[#F8FAFC] flex flex-col justify-between ${
@@ -41,7 +45,6 @@ function Sidebar() {
       }`}
     >
       <div className="flex flex-col gap-8">
-        {/* Sidenav header */}
         <div className="flex items-center gap-4">
           <div className="flex gap-2 items-center">
             <Image src="assets/logo.svg" width={30} height={30} />
@@ -54,7 +57,6 @@ function Sidebar() {
           />
         </div>
 
-        {/* Current timestamp */}
         {isMinimized ? (
           <></>
         ) : (
@@ -63,72 +65,54 @@ function Sidebar() {
           </div>
         )}
 
-        {/* SideNav Menu */}
         <div className="flex flex-col gap-3">
-          {!isMinimized && (
-            <>
-              <Link href="/orders" className="w-full" title="Orders">
-                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full">
-                  <Inbox size={20} />
-                  <span>Orders</span>
-                </div>
-              </Link>
-              <Link
-                href="/subscriptions"
-                className="w-full"
-                title="Subscriptions"
-              >
-                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
-                  <SquareCheckBig size={20} />
-                  <span>Subscriptions</span>
-                </div>
-              </Link>
-              <Link href="/calendar" className="w-full" title="Calendar">
-                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
-                  <Calendar size={20} />
-                  <span>Calendar</span>
-                </div>
-              </Link>
-              <Link href="/waitlist" className="w-full" title="Waitlist">
-                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
-                  <Timer size={20} />
-                  <span>Waitlist</span>
-                </div>
-              </Link>
-            </>
-          )}
-          {isMinimized && (
-            <>
-              <Link href="/orders" className="w-full" title="Orders">
-                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full">
-                  <Inbox size={20} />
-                </div>
-              </Link>
-              <Link
-                href="/subscriptions"
-                className="w-full"
-                title="Subscriptions"
-              >
-                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
-                  <SquareCheckBig size={20} />
-                </div>
-              </Link>
-              <Link href="/calendar" className="w-full" title="Calendar">
-                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
-                  <Calendar size={20} />
-                </div>
-              </Link>
-              <Link href="/waitlist" className="w-full" title="Waitlist">
-                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
-                  <Timer size={20} />
-                </div>
-              </Link>
-            </>
-          )}
+          <Link href="/orders" className="w-full" title="Orders">
+            <div
+              className={`flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full ${
+                activeMenu === "orders" && "bg-blue-200"
+              }`}
+              onClick={() => handleMenuClick("orders")}
+            >
+              <Inbox size={20} />
+              {!isMinimized && <span>Orders</span>}
+            </div>
+          </Link>
+          <Link href="/subscriptions" className="w-full" title="Subscriptions">
+            <div
+              className={`flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full ${
+                activeMenu === "subscriptions" && "bg-blue-200"
+              }`}
+              onClick={() => handleMenuClick("subscriptions")}
+            >
+              <SquareCheckBig size={20} />
+              {!isMinimized && <span>Subscriptions</span>}
+            </div>
+          </Link>
+          <Link href="/calendar" className="w-full" title="Calendar">
+            <div
+              className={`flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full ${
+                activeMenu === "calendar" && "bg-blue-200"
+              }`}
+              onClick={() => handleMenuClick("calendar")}
+            >
+              <Calendar size={20} />
+              {!isMinimized && <span>Calendar</span>}
+            </div>
+          </Link>
+          <Link href="/waitlist" className="w-full" title="Waitlist">
+            <div
+              className={`flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full ${
+                activeMenu === "waitlist" && "bg-blue-200"
+              }`}
+              onClick={() => handleMenuClick("waitlist")}
+            >
+              <Timer size={20} />
+              {!isMinimized && <span>Waitlist</span>}
+            </div>
+          </Link>
         </div>
       </div>
 
-      {/* Logged user profile */}
       <div
         className={`flex items-center gap-2 ${
           isMinimized ? "justify-center" : "justify-start"
