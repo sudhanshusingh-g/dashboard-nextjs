@@ -9,11 +9,26 @@ import {
   Timer,
   SquareArrowOutUpRight,
 } from "lucide-react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 function Sidebar() {
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const currentTime = new Date().toLocaleTimeString();
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640); // Adjust the width as per your requirement for mobile view
+    };
+
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized);
@@ -33,7 +48,7 @@ function Sidebar() {
             {!isMinimized && <h2 className="font-bold text-lg">Front·Desk</h2>}
           </div>
           <TbLayoutSidebarLeftCollapseFilled
-            size={20}
+            size={32}
             className="cursor-pointer"
             onClick={handleMinimize}
           />
@@ -42,8 +57,8 @@ function Sidebar() {
         {/* Current timestamp */}
         {isMinimized ? (
           <></>
-        ):(
-<div className="flex items-center flex-col mt-4">
+        ) : (
+          <div className="flex items-center flex-col mt-4">
             <h2 className="text-xl">{currentTime.toUpperCase()}</h2>
           </div>
         )}
@@ -54,17 +69,8 @@ function Sidebar() {
             <>
               <Link href="/orders" className="w-full" title="Orders">
                 <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full">
-                  {isMinimized ? (
-                    
-                      <Inbox size={20} />
-                    
-                  ) : (
-                    <>
-                      <Inbox size={20} />
-                      <span>Orders</span>
-                    </>
-                  )}
-                  
+                  <Inbox size={20} />
+                  <span>Orders</span>
                 </div>
               </Link>
               <Link
@@ -87,6 +93,34 @@ function Sidebar() {
                 <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
                   <Timer size={20} />
                   <span>Waitlist</span>
+                </div>
+              </Link>
+            </>
+          )}
+          {isMinimized && (
+            <>
+              <Link href="/orders" className="w-full" title="Orders">
+                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full">
+                  <Inbox size={20} />
+                </div>
+              </Link>
+              <Link
+                href="/subscriptions"
+                className="w-full"
+                title="Subscriptions"
+              >
+                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
+                  <SquareCheckBig size={20} />
+                </div>
+              </Link>
+              <Link href="/calendar" className="w-full" title="Calendar">
+                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
+                  <Calendar size={20} />
+                </div>
+              </Link>
+              <Link href="/waitlist" className="w-full" title="Waitlist">
+                <div className="flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm ">
+                  <Timer size={20} />
                 </div>
               </Link>
             </>
@@ -119,4 +153,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-
