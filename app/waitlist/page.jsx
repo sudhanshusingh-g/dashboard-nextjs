@@ -34,6 +34,46 @@ async function getData() {
       services: "Appointment Session", // Add the services property
       scheduled: "2024-01-10", // Add the scheduled property
     },
+    {
+      id: "828ed52f",
+      status: "Inactive",
+      email: "aprilcurtis@example.com",
+      createdOn: "2024-01-07 14:42", // Add the createdOn property
+      payer: "April Curtis", // Add the payer property
+      payerphone: "123-456-7890", // Add the payerphone property
+      services: "Fitness Session", // Add the services property
+      scheduled: "2024-01-10", // Add the scheduled property
+    },
+    {
+      id: "528ed52f",
+      status: "Active",
+      email: "hannibalsmith@example.com",
+      createdOn: "2024-01-07 14:42", // Add the createdOn property
+      payer: "Mike Torello", // Add the payer property
+      payerphone: "123-456-7890", // Add the payerphone property
+      services: "Appointment Session", // Add the services property
+      scheduled: "2024-01-10", // Add the scheduled property
+    },
+    {
+      id: "828ed52f",
+      status: "Inactive",
+      email: "aprilcurtis@example.com",
+      createdOn: "2024-01-07 14:42", // Add the createdOn property
+      payer: "April Curtis", // Add the payer property
+      payerphone: "123-456-7890", // Add the payerphone property
+      services: "Fitness Session", // Add the services property
+      scheduled: "2024-01-10", // Add the scheduled property
+    },
+    {
+      id: "528ed52f",
+      status: "Active",
+      email: "hannibalsmith@example.com",
+      createdOn: "2024-01-07 14:42", // Add the createdOn property
+      payer: "Mike Torello", // Add the payer property
+      payerphone: "123-456-7890", // Add the payerphone property
+      services: "Appointment Session", // Add the services property
+      scheduled: "2024-01-10", // Add the scheduled property
+    },
   ];
   
 }

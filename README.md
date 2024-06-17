@@ -7,7 +7,7 @@ This project is a front-end implementation of a design mock-up using Next.js and
 [Live Demo](https://dashboard-nextjs-nine-green.vercel.app/)
 
 ## Video Explanation
-[Video Explanation](https://drive.google.com/file/d/1FiX8pOWHE88cHxN2ZK6oVyg6Z_Qk4WiF/view)
+[Video Explanation](https://www.loom.com/share/06cbcb71f5eb4f2fa6918aa2e1f17817?sid=e89bdd15-c5be-4d7f-9643-5bb6580013c2)
 
 ## Getting Started
 To run this project locally:
