@@ -1,13 +1,10 @@
 "use client";
 import {
   useReactTable,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
-  SortingState,
   getSortedRowModel,
-  ColumnFiltersState,
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
@@ -57,6 +54,7 @@ function DataTable({ columns, data }) {
   const [service, setService] = useState(false);
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
+  const [activeButton, setActiveButton] = useState("allWaitlist");
 
   const table = useReactTable({
     data: data,
@@ -95,10 +93,49 @@ function DataTable({ columns, data }) {
     setService(true);
   };
 
+   const handleLeadClick = () => {
+     setColumnFilters([{ id: "status", value: "Lead" }]);
+     setActiveButton("lead");
+   };
+   const handleAllWaitlistClick = () => {
+     setColumnFilters([]);
+     setSorting([]);
+     setActiveButton("allWaitlist");
+   };
+
+  const leadCount = data.filter((item) => item.status === "Lead").length;
+
   return (
     <div>
       <h2 className=" font-bold text-3xl">Waitlist</h2>
-      <div></div>
+      <div className="flex justify-between items-center my-4 gap-2">
+        <Button
+          variant={"ghost"}
+          className={`border p-2 w-full rounded-sm font-medium ${
+            activeButton === "allWaitlist" ? "border-black" : ""
+          }`}
+          onClick={handleAllWaitlistClick}
+        >
+          All Waitlist{" "}
+          <span className="text-muted-foreground ml-2">{data.length}</span>
+        </Button>
+        <Button
+          variant={"ghost"}
+          className="border p-2 w-full rounded-sm font-medium"
+        >
+          Newly Added
+          <span className="text-muted-foreground ml-2">3</span>
+        </Button>
+        <Button
+          variant={"ghost"}
+          className={`border p-2 w-full rounded-sm font-medium ${
+            activeButton === "lead" ? "border-black" : ""
+          }`}
+          onClick={handleLeadClick}
+        >
+          Lead <span className="text-muted-foreground ml-2">{leadCount}</span>
+        </Button>
+      </div>
       <div className="flex justify-between gap-8 py-4">
         <Popover>
           <PopoverTrigger asChild>

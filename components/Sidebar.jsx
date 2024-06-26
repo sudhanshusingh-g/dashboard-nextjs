@@ -1,132 +1,59 @@
 "use client"
-import Image from "next/image";
-import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
-import Link from "next/link";
 import {
-  Inbox,
-  SquareCheckBig,
   Calendar,
+  CreditCard,
+  Layout,
+  MenuIcon,
   Timer,
-  SquareArrowOutUpRight,
+  Truck,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-function Sidebar() {
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(null);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 640);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const handleMinimize = () => {
-    setIsMinimized(!isMinimized);
-  };
-
-  const handleMenuClick = (menu) => {
-    setActiveMenu(menu);
-  };
+const Sidebar = () => {
+  const path = usePathname();
 
   return (
-    <div
-      className={`h-[100vh] p-2 shadow-md bg-[#F8FAFC] flex flex-col justify-between ${
-        isMinimized ? "w-16" : "w-64"
-      }`}
-    >
-      <div className="flex flex-col gap-8">
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2 items-center">
-            <Image src="assets/logo.svg" width={30} height={30} />
-            {!isMinimized && <h2 className="font-bold text-lg">Front·Desk</h2>}
-          </div>
-          <TbLayoutSidebarLeftCollapseFilled
-            size={32}
-            className="cursor-pointer"
-            onClick={handleMinimize}
-          />
-        </div>
-
-        
-
-        <div className="flex flex-col gap-3">
-          <Link href="/orders" className="w-full" title="Orders">
-            <div
-              className={`flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full ${
-                activeMenu === "orders" && "bg-blue-200"
-              }`}
-              onClick={() => handleMenuClick("orders")}
-            >
-              <Inbox size={20} />
-              {!isMinimized && <span>Orders</span>}
-            </div>
-          </Link>
-          <Link href="/subscriptions" className="w-full" title="Subscriptions">
-            <div
-              className={`flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full ${
-                activeMenu === "subscriptions" && "bg-blue-200"
-              }`}
-              onClick={() => handleMenuClick("subscriptions")}
-            >
-              <SquareCheckBig size={20} />
-              {!isMinimized && <span>Subscriptions</span>}
-            </div>
-          </Link>
-          <Link href="/calendar" className="w-full" title="Calendar">
-            <div
-              className={`flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full ${
-                activeMenu === "calendar" && "bg-blue-200"
-              }`}
-              onClick={() => handleMenuClick("calendar")}
-            >
-              <Calendar size={20} />
-              {!isMinimized && <span>Calendar</span>}
-            </div>
-          </Link>
-          <Link href="/waitlist" className="w-full" title="Waitlist">
-            <div
-              className={`flex items-center gap-2 p-2 cursor-pointer hover:bg-white rounded-sm w-full ${
-                activeMenu === "waitlist" && "bg-blue-200"
-              }`}
-              onClick={() => handleMenuClick("waitlist")}
-            >
-              <Timer size={20} />
-              {!isMinimized && <span>Waitlist</span>}
-            </div>
-          </Link>
-        </div>
-      </div>
-
-      <div
-        className={`flex items-center gap-2 ${
-          isMinimized ? "justify-center" : "justify-start"
-        }`}
-      >
-        {!isMinimized ? (
-          <Image src="assets/logo.svg" width={24} height={24} />
-        ) : (
-          <Image src="assets/logo.svg" width={30} height={30} />
-        )}
-        {!isMinimized && (
-          <span
-            className="flex items-center gap-1 cursor-pointer"
-            title="Dashboard"
-          >
-            Dashboard <SquareArrowOutUpRight size={16} />
-          </span>
-        )}
-      </div>
+    <div className="h-screen bg-gray-100  lg:w-42 p-2 lg:p-4">
+      <h2 className="mb-6 flex items-center justify-between gap-4">
+        <Image src={"/assets/logo.svg"} width={32} height={32} />
+        <MenuIcon className="lg:hidden" />
+      </h2>
+      <ul>
+        <NavItem href="/" icon={<Layout size={16} />} text="Dashboard" />
+        <NavItem href="/orders" icon={<Truck size={16} />} text="Orders" />
+        <NavItem
+          href="/calendar"
+          icon={<Calendar size={16} />}
+          text="Calendar"
+        />
+        <NavItem
+          href="/subscriptions"
+          icon={<CreditCard size={16} />}
+          text="Subscriptions"
+        />
+        <NavItem href="/waitlist" icon={<Timer size={16} />} text="WaitList" />
+      </ul>
     </div>
   );
-}
+
+  function NavItem({ href, icon, text }) {
+    const isActive = path === href;
+
+    return (
+      <Link href={href}>
+        <li
+          className={`mb-4 hover:bg-gray-300 p-2 rounded-sm flex items-center gap-2 ${
+            isActive ? "bg-slate-500 text-white" : ""
+          }`}
+        >
+          {icon}
+          <span className="hidden lg:block">{text}</span>
+        </li>
+      </Link>
+    );
+  }
+};
 
 export default Sidebar;
