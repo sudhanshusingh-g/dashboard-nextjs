@@ -108,7 +108,7 @@ function DataTable({ columns, data }) {
   return (
     <div>
       <h2 className=" font-bold text-3xl">Waitlist</h2>
-      <div className="flex justify-between items-center my-4 gap-2">
+      <div className="flex flex-col lg:flex-row justify-between items-center my-4 gap-2">
         <Button
           variant={"ghost"}
           className={`border p-2 w-full rounded-sm font-medium ${

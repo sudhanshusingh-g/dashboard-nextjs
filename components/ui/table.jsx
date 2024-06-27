@@ -1,6 +1,8 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { useState, useEffect } from "react";
+
 
 const Table = React.forwardRef(({ className, ...props }, ref) => (
   <div className="relative w-full overflow-x-scroll">
@@ -44,22 +46,35 @@ const TableRow = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TableRow.displayName = "TableRow"
 
-const TableHead = React.forwardRef(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      "h-8 text-xs px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
-      className
-    )}
-    {...props} />
-))
+const TableHead = React.forwardRef(({ className, ...props }, ref) => {
+  const [animate, setAnimate] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimate(false);
+    }, 200); 
+
+    return () => clearTimeout(timer);
+  }, []);
+  return (
+    <th
+      ref={ref}
+      className={cn(
+        "h-8 px-4 text-left whitespace-nowrap overflow-hidden align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
+        { "animate-bounce": animate },
+        className
+      )}
+      {...props}
+    />
+  );
+});
+
 TableHead.displayName = "TableHead"
 
 const TableCell = React.forwardRef(({ className, ...props }, ref) => (
   <td
     ref={ref}
     className={cn(
-      "text-xs p-4 align-middle [&:has([role=checkbox])]:pr-0",
+      "whitespace-nowrap overflow-hidden p-4 align-middle [&:has([role=checkbox])]:pr-0 ",
       className
     )}
     {...props}

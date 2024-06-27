@@ -30,7 +30,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-screen bg-gray-100 p-2 lg:p-4 flex flex-col justify-between ${
+      className={`hidden lg:block h-screen bg-gray-100 p-2 lg:p-4 flex flex-col justify-between ${
         isCollapsed ? "lg:w-20" : "lg:w-56"
       }`}
     >
@@ -113,7 +113,7 @@ const Sidebar = () => {
         </div>
         <ChevronDown size={16} />
       </div>
-      <div className={` flex items-center gap-2 `}>
+      <div className={` flex items-center gap-2 mt-10 `}>
         <CircleHelp size={12} />
         <div
           className={`flex flex-col text-xs  ${isCollapsed ? "hidden" : ""}`}
@@ -136,7 +136,7 @@ const Sidebar = () => {
           }`}
         >
           {icon}
-          <span className={`hidden lg:block ${isCollapsed ? "lg:hidden" : ""}`}>
+          <span className={` lg:block ${isCollapsed ? "lg:hidden" : ""}`}>
             {text}
           </span>
         </li>
