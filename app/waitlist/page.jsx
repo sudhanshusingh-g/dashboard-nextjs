@@ -82,8 +82,7 @@ export default async function DemoPage() {
   const data = await getData();
 
   return (
-    <div>
-      
+    <div className="w-full ">
       <DataTable columns={columns} data={data} />
     </div>
   );
