@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, CircleX, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar as C } from "@/components/ui/calendar";
 import { Calendar, Columns2, FilterIcon, Gift, User2Icon } from "lucide-react";
@@ -43,6 +43,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import People from "@/components/Filters/People";
+import Services from "@/components/Filters/Services";
 
 function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
@@ -55,6 +57,7 @@ function DataTable({ columns, data }) {
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [activeButton, setActiveButton] = useState("allWaitlist");
+ 
 
   const table = useReactTable({
     data: data,
@@ -104,7 +107,7 @@ function DataTable({ columns, data }) {
    };
 
   const leadCount = data.filter((item) => item.status === "Lead").length;
-
+  
   return (
     <div>
       <h2 className=" font-bold text-3xl">Waitlist</h2>
@@ -150,17 +153,20 @@ function DataTable({ columns, data }) {
                 <div
                   className={
                     schedule
-                      ? `bg-slate-400 text-white rounded-sm flex gap-2 items-center p-2 cursor-pointer`
+                      ? `bg-slate-300 text-slate-700 rounded-sm flex gap-4 items-center p-2 cursor-pointer`
                       : `flex gap-2 items-center p-2 cursor-pointer`
                   }
                   onClick={handleScheduleClick}
                 >
-                  <Calendar size={14} /> Scheduled Date
+                  <div className="flex items-center gap-1">
+                    <Calendar size={14} /> Scheduled Date
+                  </div>
+                  <span className="font-medium text-muted-foreground">1</span>
                 </div>
                 <div
                   className={
                     people
-                      ? `bg-slate-400 text-white rounded-sm flex gap-2 items-center p-2 cursor-pointer`
+                      ? `bg-slate-300 text-slate-700 rounded-sm flex gap-2 items-center p-2 cursor-pointer`
                       : `flex gap-2 items-center p-2 cursor-pointer`
                   }
                   onClick={handlePeopleClick}
@@ -170,7 +176,7 @@ function DataTable({ columns, data }) {
                 <div
                   className={
                     service
-                      ? `bg-slate-400 text-white rounded-sm flex gap-2 items-center p-2 cursor-pointer`
+                      ? `bg-slate-300 text-slate-700 rounded-sm flex gap-2 items-center p-2 cursor-pointer`
                       : `flex gap-2 items-center p-2 cursor-pointer`
                   }
                   onClick={handleServiceClick}
@@ -260,27 +266,25 @@ function DataTable({ columns, data }) {
                     </div>
                   </div>
                 )}
-                {people && (
-                  <div className="w-60">
-                    <Input placeholder="Search Payer or attendee name" />
-                  </div>
-                )}
-                {service && (
-                  <div className="w-60">
-                    <Input placeholder="Search service name" />
-                  </div>
-                )}
+
+                {/* Filter for selecting payer or attendee */}
+                {people && <People />}
+
+                {/* Filter for selecting services or products */}
+
+                {service && <Services/>}
               </div>
             </div>
           </PopoverContent>
         </Popover>
+
         <Input
           placeholder="Search client..."
           value={table.getColumn("email")?.getFilterValue() || ""}
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="w-1/4"
+          className="w-1/3"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

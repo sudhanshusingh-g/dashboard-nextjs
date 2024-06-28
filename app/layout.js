@@ -1,8 +1,7 @@
-
+// RootLayout Component
 import Sidebar from "@/components/Sidebar";
 import "./globals.css";
-
-
+import Drawer from "@/components/Drawer";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,9 +11,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="h-screen w-full flex relative  scrollbar-none">
+      <body className="h-screen w-full flex relative scrollbar-none">
+        <Drawer />
         <Sidebar />
-        <div className="w-full  p-3  overflow-x-hidden">{children}</div>
+        <div className="w-full p-3 overflow-x-hidden">{children}</div>
       </body>
     </html>
   );
