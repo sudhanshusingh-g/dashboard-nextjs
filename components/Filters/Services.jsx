@@ -3,6 +3,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CircleX, Search } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function Services() {
   const servicesList = [
@@ -157,9 +166,46 @@ function Services() {
       )}
 
       {searchByTag && (
-        <div>
+        <div className="flex flex-col gap-4">
           {/* Placeholder for tag search */}
-          <Input placeholder="Search by tags" />
+          <div className="flex flex-col gap-2">
+            <Label>Service Type</Label>
+            <Select>
+              <SelectTrigger className="w-[100%]">
+                <SelectValue placeholder="Select a service type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup className="h-40 overflow-y-scroll">
+                  <SelectLabel>Service Type</SelectLabel>
+                  <SelectItem value="all">Show all service type</SelectItem>
+                  <SelectItem value="class">Class</SelectItem>
+                  <SelectItem value="appointment">Appointment</SelectItem>
+                  <SelectItem value="facility">Facility</SelectItem>
+                  <SelectItem value="class-pack">Class Pack</SelectItem>
+                  <SelectItem value="membership">Membership</SelectItem>
+                  <SelectItem value="general">General Items</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Status</Label>
+            <Select>
+              <SelectTrigger className="w-[100%]">
+                <SelectValue placeholder="Select a status type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Status Type</SelectLabel>
+                  <SelectItem value="all">Show All</SelectItem>
+                  <SelectItem value="public">Public</SelectItem>
+                  <SelectItem value="private">Private</SelectItem>
+                  <SelectItem value="disable">Disable</SelectItem>
+                  <SelectItem value="draft">Draft</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       )}
     </div>

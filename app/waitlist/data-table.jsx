@@ -24,27 +24,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { useState } from "react";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon, CircleX, Search } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Calendar as C } from "@/components/ui/calendar";
+
+
+
 import { Calendar, Columns2, FilterIcon, Gift, User2Icon } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import People from "@/components/Filters/People";
 import Services from "@/components/Filters/Services";
+import ScheduleDate from "@/components/Filters/ScheduleDate";
 
 function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
@@ -54,8 +48,7 @@ function DataTable({ columns, data }) {
   const [schedule, setSchedule] = useState(true);
   const [people, setPeople] = useState(false);
   const [service, setService] = useState(false);
-  const [fromDate, setFromDate] = useState();
-  const [toDate, setToDate] = useState();
+  
   const [activeButton, setActiveButton] = useState("allWaitlist");
  
 
@@ -140,7 +133,7 @@ function DataTable({ columns, data }) {
         </Button>
       </div>
       <div className="flex justify-between gap-8 py-4">
-        <Popover>
+        <Popover className="">
           <PopoverTrigger asChild>
             <Button variant="outline">
               <FilterIcon size={16} />
@@ -185,87 +178,7 @@ function DataTable({ columns, data }) {
                 </div>
               </div>
               <div>
-                {schedule && (
-                  <div>
-                    <div>
-                      <Label>Show orders for</Label>
-                      <Select>
-                        <SelectTrigger className="w-[180px]">
-                          <SelectValue placeholder="All Time" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All</SelectItem>
-                          <SelectItem value="custom">Custom</SelectItem>
-                          <SelectItem value="last30">Last 30 days</SelectItem>
-                          <SelectItem value="thismonth">This month</SelectItem>
-                          <SelectItem value="lastmonth">Last month</SelectItem>
-                          <SelectItem value="quarter">This quarter</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <div className="flex flex-col mt-4 gap-1">
-                        <Label>From</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-[280px] justify-start text-left font-normal",
-                                !fromDate && "text-muted-foreground"
-                              )}
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {fromDate ? (
-                                format(fromDate, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <C
-                              mode="single"
-                              selected={fromDate}
-                              onSelect={setFromDate}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </div>
-
-                      <div className="flex flex-col mt-4 gap-1">
-                        <Label>To</Label>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-[280px] justify-start text-left font-normal",
-                                !toDate && "text-muted-foreground"
-                              )}
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {toDate ? (
-                                format(toDate, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <C
-                              mode="single"
-                              selected={toDate}
-                              onSelect={setToDate}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                {schedule && <ScheduleDate/>}
 
                 {/* Filter for selecting payer or attendee */}
                 {people && <People />}
