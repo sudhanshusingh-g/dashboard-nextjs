@@ -140,7 +140,7 @@ function DataTable({ columns, data }) {
               Add Filter
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-fit h-80">
+          <PopoverContent className="w-fit ">
             <div className="flex gap-2 h-full">
               <div className="bg-slate-100 h-full">
                 <div
@@ -178,15 +178,21 @@ function DataTable({ columns, data }) {
                 </div>
               </div>
               <div>
-                {schedule && <ScheduleDate/>}
+                {schedule && <ScheduleDate />}
 
                 {/* Filter for selecting payer or attendee */}
                 {people && <People />}
 
                 {/* Filter for selecting services or products */}
 
-                {service && <Services/>}
+                {service && <Services />}
               </div>
+            </div>
+            <div className="flex items-center justify-end gap-2 mt-4">
+              <Button variant={"outline"} size={"sm"}>
+                Reset
+              </Button>
+              <Button size={"sm"}>Apply Filters</Button>
             </div>
           </PopoverContent>
         </Popover>

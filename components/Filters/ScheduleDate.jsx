@@ -39,7 +39,7 @@ function ScheduleDate() {
           </SelectContent>
         </Select>
       </div>
-      <div className="">
+      <div className="flex items-center gap-2">
         <div className="flex flex-col mt-4 gap-1">
           <Label>From</Label>
           <Popover>
@@ -47,7 +47,7 @@ function ScheduleDate() {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[180px] justify-start text-left font-normal",
+                  "w-[120px] justify-start text-left font-normal",
                   !fromDate && "text-muted-foreground"
                 )}
               >
@@ -73,7 +73,7 @@ function ScheduleDate() {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[180px] justify-start text-left font-normal",
+                  "w-[120px] justify-start text-left font-normal",
                   !toDate && "text-muted-foreground"
                 )}
               >
